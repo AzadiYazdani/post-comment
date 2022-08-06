@@ -6,6 +6,7 @@ import com.tecnotree.demo.api.comment.dto.CommentResponseDto;
 import com.tecnotree.demo.database.entity.CommentEntity;
 import com.tecnotree.demo.model.Comment;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,17 +15,20 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class CommentMapper {
 
+    @Mapping(target = "id", ignore = true)
     public abstract Comment toModel(CommentRequestDto requestDto);
 
+    @Mapping(target = "postId", source = "entity.post.id")
     public abstract Comment toModel(CommentEntity entity);
 
-    public abstract List<Comment> toModelList(List<CommentEntity> CommentEntityList);
+    @Mapping(target = "registerTime", expression = "java(java.time.LocalDateTime.now())")
+    public abstract CommentEntity toNewEntity(Comment post);
 
-    public abstract CommentEntity toEntity(Comment Comment);
+    public abstract List<Comment> toModelList(List<CommentEntity> postEntityList);
 
     public abstract CommentResponseDto toDtoResponse(Comment entity);
 
-    public abstract List<CommentResponseDto> toDtoResponseList(List<Comment> commentList);
+    public abstract List<CommentResponseDto> toDtoResponseList(List<Comment> postList);
 
 
 

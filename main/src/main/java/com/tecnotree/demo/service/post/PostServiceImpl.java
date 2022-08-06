@@ -6,7 +6,7 @@ import com.tecnotree.demo.database.entity.PostEntity;
 import com.tecnotree.demo.database.entity.UserEntity;
 import com.tecnotree.demo.database.repository.PostRepository;
 import com.tecnotree.demo.error.exception.BadRequestException;
-import com.tecnotree.demo.error.exception.CommentsNotFoundException;
+import com.tecnotree.demo.error.exception.CommentNotFoundException;
 import com.tecnotree.demo.error.exception.PersistException;
 import com.tecnotree.demo.error.exception.PostNotFoundException;
 import com.tecnotree.demo.mapper.CommentMapper;
@@ -19,13 +19,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
+@Validated
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
@@ -40,9 +45,9 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Post getById(long id) {
+    public Post getById(@Min(1) long id) {
         try {
-            PostEntity postEntity = postRepository.findById(id)
+            PostEntity postEntity = postRepository.findByIdAndDeletedIsFalse(id)
                     .orElseThrow(() -> new PostNotFoundException(id));
             return postMapper.toModel(postEntity);
         } catch (Exception e) {
@@ -53,7 +58,7 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Page<Post> getAllByPaging(Pageable pageable) {
+    public Page<Post> getAllByPaging(@Valid @NotNull Pageable pageable) {
         try {
             Page<PostEntity> postEntityPage = postRepository.findAll(pageable);
 
@@ -71,31 +76,31 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public List<Comment> getAllCommentsById(long postId) {
+    public List<Comment> getAllCommentsById(@Min(1) long postId) {
         try {
-            PostEntity postEntity = postRepository.findById(postId)
+            PostEntity postEntity = postRepository.findByIdAndDeletedIsFalse(postId)
                     .orElseThrow(() -> new PostNotFoundException(postId));
             List<CommentEntity> commentEntities = postEntity.getComments();
 
             return commentMapper.toModelList(commentEntities);
         } catch (Exception e) {
             log.info("\nThe exception '{}' was thrown for fetching comments of the post with id {}", e.getMessage(), postId);
-            throw new CommentsNotFoundException(postId);
+            throw new CommentNotFoundException(postId);
         }
     }
 
     @Override
-    public List<Post> searchTitle(String titleValue) {
+    public List<Post> searchTitle(@NotNull String titleValue) {
         if (StringUtils.isBlank(titleValue))
             throw new BadRequestException();
 
-        List<PostEntity> postEntityList = postRepository.findAllByTitleContains(titleValue);
+        List<PostEntity> postEntityList = postRepository.findAllByTitleContainsAndDeletedIsFalse(titleValue);
         return postMapper.toModelList(postEntityList);
     }
 
 
     @Override
-    public Post newPost(Post post) {
+    public Post newPost(@Valid @NotNull Post post) {
         try {
             PostEntity postEntity = postMapper.toNewEntity(post);
 
@@ -111,14 +116,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post updatePost(long postId, Post post) {
+    public Post updatePost(@Min(1) long postId, @Valid @NotNull Post post) {
         try {
-            PostEntity postEntity = postRepository.findById(postId)
+            PostEntity postEntity = postRepository.findByIdAndDeletedIsFalse(postId)
                     .orElseThrow(() -> new PostNotFoundException(postId));
 
             updateEntity(postEntity, post);
             postRepository.save(postEntity);
             return postMapper.toModel(postEntity);
+        }catch (PostNotFoundException e){
+            log.info("\nThe PostNotFoundException was thrown for updating post with id {}", postId);
+            throw e;
         } catch (Exception e) {
             log.info("\nThe exception '{}' was thrown for updating post with id {}", e.getMessage(), postId);
             throw new PersistException(postId);
@@ -127,12 +135,15 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void deletePost(long postId) {
+    public void deletePost(@Min(1) long postId) {
         try {
-            PostEntity postEntity = postRepository.findById(postId)
+            PostEntity postEntity = postRepository.findByIdAndDeletedIsFalse(postId)
                     .orElseThrow(() -> new PostNotFoundException(postId));
             postEntity.setDeleted(true);
             postRepository.save(postEntity);
+        }catch (PostNotFoundException e){
+            log.info("\nThe PostNotFoundException was thrown for deleting post with id {}", postId);
+            throw e;
         } catch (Exception e) {
             log.info("\nThe exception '{}' was thrown for deleting post with id {}", e.getMessage(), postId);
             throw new PersistException(postId);

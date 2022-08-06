@@ -3,6 +3,7 @@ package com.tecnotree.demo.database.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -29,5 +30,9 @@ public class CommentEntity {
 
     private String body;
 
+    private boolean deleted;
 
+    private LocalDateTime registerTime;
+
+    private LocalDateTime updateTime;
 }

@@ -1,12 +1,12 @@
 package com.tecnotree.demo.error.exception;
 
-public class CommentsNotFoundException extends BaseException {
+public class CommentNotFoundException extends BaseException {
 
-    public CommentsNotFoundException(Long id) {
+    public CommentNotFoundException(Long id) {
         super(String.format("No comments were found for the post with id %d", id));
     }
 
-    public CommentsNotFoundException() {
+    public CommentNotFoundException() {
         super(String.format("No comments found"));
     }
 

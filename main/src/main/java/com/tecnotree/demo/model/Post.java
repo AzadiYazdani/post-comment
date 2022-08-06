@@ -2,6 +2,8 @@ package com.tecnotree.demo.model;
 
 import lombok.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,12 +12,14 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(setterPrefix = "set", toBuilder = true, builderMethodName = "newInstance")
+@Valid
 public class Post {
 
 
     private Long id;
 
     @NotNull
+    @Min(1)
     private Long userId;
 
     @NotBlank
@@ -24,4 +28,13 @@ public class Post {
     @NotBlank
     private String body;
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

@@ -1,17 +1,12 @@
 package com.tecnotree.demo.mapper;
 
 
-import com.tecnotree.demo.api.post.dto.PageRequestDto;
 import com.tecnotree.demo.api.post.dto.PostRequestDto;
 import com.tecnotree.demo.api.post.dto.PostResponseDto;
 import com.tecnotree.demo.database.entity.PostEntity;
-import com.tecnotree.demo.database.entity.UserEntity;
 import com.tecnotree.demo.model.Post;
 import org.mapstruct.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 

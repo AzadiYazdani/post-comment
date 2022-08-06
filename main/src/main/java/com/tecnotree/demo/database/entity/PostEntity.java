@@ -30,7 +30,7 @@ public class PostEntity {
 
     private String body;
 
-    private boolean isDeleted;
+    private boolean deleted;
 
     private LocalDateTime registerTime;
 

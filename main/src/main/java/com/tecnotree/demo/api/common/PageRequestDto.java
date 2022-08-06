@@ -1,4 +1,4 @@
-package com.tecnotree.demo.api.post.dto;
+package com.tecnotree.demo.api.common;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

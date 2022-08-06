@@ -1,9 +1,8 @@
-package com.tecnotree.demo.api.post;
-
+package com.tecnotree.demo.api.comment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tecnotree.demo.api.comment.dto.CommentRequestDto;
 import com.tecnotree.demo.api.common.PageRequestDto;
-import com.tecnotree.demo.api.post.dto.PostRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostControllerTest {
+class CommentControllerTest {
+
 
     @Autowired
     MockMvc mockMvc;
 
+
     @Test
-    void getAllByPaging() throws Exception {
-        mockMvc.perform(get("/posts")
+    void getAllByPaging()  throws Exception {
+        mockMvc.perform(get("/comments")
                 .content(asJsonString(getPageRequestDto()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -37,70 +38,54 @@ class PostControllerTest {
         return PageRequestDto.newInstance().setPage(0).setSize(10).build();
     }
 
+
     @Test
     void getById() throws Exception {
-        mockMvc.perform(get("/posts/1")
+        mockMvc.perform(get("/comments/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void getAllComments() throws Exception {
-        mockMvc.perform(get("/posts/1/comments")
+    void newComment() throws Exception {
+        mockMvc.perform(post("/comments")
+                .content(asJsonString(getNewComment()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void search() throws Exception {
-        mockMvc.perform(get("/posts?title=eos")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-
-    @Test
-    void newPost() throws Exception {
-        mockMvc.perform(post("/posts")
-                .content(asJsonString(getNewPost()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-    }
-
-    private PostRequestDto getNewPost() {
-        return PostRequestDto.newInstance()
-                .setTitle("quasi id et eos tenetur aut quo autem")
-                .setBody("eum sed dolores ipsam sint possimus debitis occaecati\ndebitis qui qui et\nut placeat enim earum aut odit facilis\nconsequatur suscipit necessitatibus rerum sed inventore temporibus consequatur")
-                .setUserId(4L)
+    private CommentRequestDto getNewComment() {
+        return CommentRequestDto.newInstance()
+                .setPostId(1L)
+                .setName("odio adipisci rerum aut animi")
+                .setEmail("Nikita@garfield.biz")
+                .setBody("quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione")
                 .build();
     }
 
     @Test
-    void updatePost() throws Exception {
-        mockMvc.perform(patch("/posts/1")
-                .content(asJsonString(getUpdatePost()))
+    void updateComment() throws Exception {
+        mockMvc.perform(patch("/comments/1")
+                .content(asJsonString(getUpdateComment()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
     }
 
-    private PostRequestDto getUpdatePost() {
-        return PostRequestDto.newInstance()
-                .setBody("quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto")
-                .setTitle("sunt aut facere repellat provident occaecati excepturi optio reprehenderit")
-                .setUserId(1L)
+    private Object getUpdateComment() {
+        return CommentRequestDto.newInstance()
+                .setPostId(1L)
+                .setName("odio adipisci rerum aut animi")
+                .setEmail("Nikita@garfield.biz")
+                .setBody("quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione")
                 .build();
     }
 
     @Test
-    void deletePost() throws Exception {
-        mockMvc.perform(delete("/posts/12")
+    void deleteComment() throws Exception {
+        mockMvc.perform(delete("/comments/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

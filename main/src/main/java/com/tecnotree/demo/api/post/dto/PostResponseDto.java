@@ -23,4 +23,14 @@ public class PostResponseDto implements Serializable {
 
     @ApiModelProperty(value = "title of post", dataType = "String", example = "\"eum sed dolores ipsam sint possimus debitis occaecati\\ndebitis qui qui et\\nut placeat enim earum aut odit facilis\\nconsequatur suscipit necessitatibus rerum sed inventore temporibus consequatur\"")
     private String body;
+
+    @Override
+    public String toString() {
+        return "PostResponseDto{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

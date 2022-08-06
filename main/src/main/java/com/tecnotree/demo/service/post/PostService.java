@@ -5,22 +5,27 @@ import com.tecnotree.demo.model.Comment;
 import com.tecnotree.demo.model.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Validated
 public interface PostService {
 
-    Post getById(long id);
+    Post getById(@Min(1) long id);
 
-    Page<Post> getAllByPaging(Pageable pageable);
+    Page<Post> getAllByPaging(@Valid @NotNull Pageable pageable);
 
-    List<Comment> getAllCommentsById(long postId);
+    List<Comment> getAllCommentsById(@Min(1) long postId);
 
-    List<Post> searchTitle(String title);
+    List<Post> searchTitle(@NotNull String title);
 
-    Post newPost(Post post);
+    Post newPost(@Valid @NotNull Post post);
 
-    Post updatePost(long id, Post post);
+    Post updatePost(@Min(1) long id, @Valid @NotNull Post post);
 
-    void deletePost(long id);
+    void deletePost(@Min(1) long id);
 }

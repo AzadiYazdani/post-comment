@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends PagingAndSortingRepository<PostEntity, Long> {
 
-    Optional<PostEntity> findById(Long id);
+    Optional<PostEntity> findByIdAndDeletedIsFalse(Long id);
 
-    List<PostEntity> findAllByTitleContains(String titleValue);
+    List<PostEntity> findAllByTitleContainsAndDeletedIsFalse(String titleValue);
 }
