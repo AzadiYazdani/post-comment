@@ -11,6 +11,8 @@ import com.tecnotree.demo.mapper.PostMapper;
 import com.tecnotree.demo.model.Comment;
 import com.tecnotree.demo.model.Post;
 import com.tecnotree.demo.service.post.PostService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
+@Api(value = "Post operations")
 @RequestMapping(value = "/posts")
 @Slf4j
 public class PostController {
@@ -38,6 +41,7 @@ public class PostController {
     }
 
     @GetMapping("?")
+    @ApiOperation(value = "Get all posts with paging")
     public ResponseEntity<ResponseDto<Page<PostResponseDto>>> getAllByPaging(@RequestBody @NotNull PageRequestDto pageRequestDto) {
         log.debug("received pageRequestDto for retrieving all post is {}", pageRequestDto);
         Pageable pageable = PageRequest.of(pageRequestDto.getPage(), pageRequestDto.getSize());
@@ -47,6 +51,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/{postId}")
+    @ApiOperation(value = "Find a post with given id")
     public ResponseEntity<ResponseDto<PostResponseDto>> getById(@PathVariable("postId") long postId) {
         log.debug("received postId for retrieving Post is {}", postId);
         Post post = postService.getById(postId);
@@ -57,6 +62,7 @@ public class PostController {
 
 
     @GetMapping("/{postId}/comments")
+    @ApiOperation(value = "Find all comments of a post with given id of post")
     public ResponseEntity<ResponseDto<PostResponseDto>> getAllComments(@PathVariable("postId") long postId) {
         log.debug("received postId for retrieving comments is {}", postId);
         List<Comment> comments = postService.getAllCommentsById(postId);
@@ -66,6 +72,7 @@ public class PostController {
     }
 
     @GetMapping()
+    @ApiOperation(value = "Find all posts with given part of title")
     public ResponseEntity<ResponseDto<List<PostResponseDto>>> search(@RequestParam("title") String value) {
         log.debug("received value for searching title is {}", value);
         List<Post> postList = postService.searchTitle(value);
@@ -76,6 +83,7 @@ public class PostController {
 
 
     @PostMapping()
+    @ApiOperation(value = "Add new post for a user")
     public ResponseEntity<ResponseDto<PostResponseDto>> newPost(@RequestBody @NotNull PostRequestDto requestDto) {
         log.debug("received PostRequestDto for retrieving Post is {}", requestDto);
         Post post = postMapper.toModel(requestDto);
@@ -86,6 +94,7 @@ public class PostController {
     }
 
     @PatchMapping("/{postId}")
+    @ApiOperation(value = "Update title or body of a post")
     public ResponseEntity<ResponseDto<PostResponseDto>> updatePost(@PathVariable("postId") long postId, @RequestBody @NotNull PostRequestDto requestDto) {
         log.debug("received PostRequestDto for retrieving Post is {}", requestDto);
         Post post = postMapper.toModel(requestDto);
@@ -96,6 +105,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
+    @ApiOperation(value = "Delete a post with a given id")
     public ResponseEntity<ResponseDto> deletePost(@PathVariable("postId") long postId) {
         log.debug("received postId for retrieving Post is {}", postId);
         postService.deletePost(postId);

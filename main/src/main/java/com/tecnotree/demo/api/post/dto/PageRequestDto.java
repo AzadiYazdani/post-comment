@@ -1,5 +1,6 @@
 package com.tecnotree.demo.api.post.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,8 +12,10 @@ import java.io.Serializable;
 @Builder(setterPrefix = "set", toBuilder = true, builderMethodName = "newInstance")
 public class PageRequestDto implements Serializable {
 
-    private int page;
+    @ApiModelProperty(value = "Page number", dataType = "int", example = "0")
+    private Integer page;
 
-    private int size;
+    @ApiModelProperty(value = "Page size", dataType = "int", example = "10")
+    private Integer size;
 
 }
