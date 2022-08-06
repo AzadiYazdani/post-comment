@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -59,6 +57,15 @@ class PostControllerTest {
     }
 
     @Test
+    void search() throws Exception {
+        mockMvc.perform(get("/posts?title=eos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
     void newPost() throws Exception {
         mockMvc.perform(post("/posts")
                 .content(asJsonString(getNewPost()))
@@ -70,9 +77,9 @@ class PostControllerTest {
 
     private PostRequestDto getNewPost() {
         return PostRequestDto.newInstance()
-                .setBody("sunt")
-                .setTitle("quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto")
-                .setUserId(1)
+                .setTitle("quasi id et eos tenetur aut quo autem")
+                .setBody("eum sed dolores ipsam sint possimus debitis occaecati\ndebitis qui qui et\nut placeat enim earum aut odit facilis\nconsequatur suscipit necessitatibus rerum sed inventore temporibus consequatur")
+                .setUserId(3)
                 .build();
     }
 
@@ -109,4 +116,5 @@ class PostControllerTest {
             throw new RuntimeException(e);
         }
     }
+
 }

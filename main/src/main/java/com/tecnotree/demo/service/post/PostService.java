@@ -16,6 +16,8 @@ public interface PostService {
 
     List<Comment> getAllCommentsById(long postId);
 
+    List<Post> searchTitle(String title);
+
     Post newPost(Post post);
 
     Post updatePost(long id, Post post);

@@ -5,6 +5,7 @@ import com.tecnotree.demo.database.entity.CommentEntity;
 import com.tecnotree.demo.database.entity.PostEntity;
 import com.tecnotree.demo.database.entity.UserEntity;
 import com.tecnotree.demo.database.repository.PostRepository;
+import com.tecnotree.demo.error.exception.BadRequestException;
 import com.tecnotree.demo.error.exception.CommentsNotFoundException;
 import com.tecnotree.demo.error.exception.PersistException;
 import com.tecnotree.demo.error.exception.PostNotFoundException;
@@ -13,9 +14,9 @@ import com.tecnotree.demo.mapper.PostMapper;
 import com.tecnotree.demo.model.Comment;
 import com.tecnotree.demo.model.Post;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<Post> getAllByPaging(Pageable pageable) {
         try {
-//            Pageable page1 = PageRequest.of(0, 10);
             Page<PostEntity> postEntityPage = postRepository.findAll(pageable);
 
             if (postEntityPage.isEmpty()) {
@@ -82,6 +82,15 @@ public class PostServiceImpl implements PostService {
             log.info("\nThe exception '{}' was thrown for fetching comments of the post with id {}", e.getMessage(), postId);
             throw new CommentsNotFoundException(postId);
         }
+    }
+
+    @Override
+    public List<Post> searchTitle(String titleValue) {
+        if (StringUtils.isBlank(titleValue))
+            throw new BadRequestException();
+
+        List<PostEntity> postEntityList = postRepository.findAllByTitleContains(titleValue);
+        return postMapper.toModelList(postEntityList);
     }
 
 

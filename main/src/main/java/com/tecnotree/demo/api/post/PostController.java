@@ -37,7 +37,7 @@ public class PostController {
         this.commentMapper = commentMapper;
     }
 
-    @GetMapping()
+    @GetMapping("?")
     public ResponseEntity<ResponseDto<Page<PostResponseDto>>> getAllByPaging(@RequestBody @NotNull PageRequestDto pageRequestDto) {
         log.debug("received pageRequestDto for retrieving all post is {}", pageRequestDto);
         Pageable pageable = PageRequest.of(pageRequestDto.getPage(), pageRequestDto.getSize());
@@ -63,6 +63,15 @@ public class PostController {
         List<CommentResponseDto> commentResponseDtoList = commentMapper.toDtoResponseList(comments);
         log.info("the list of comments for sending is {}", commentResponseDtoList);
         return new ResponseEntity<ResponseDto<PostResponseDto>>(ResponseDto.success(commentResponseDtoList), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ResponseDto<List<PostResponseDto>>> search(@RequestParam("title") String value) {
+        log.debug("received value for searching title is {}", value);
+        List<Post> postList = postService.searchTitle(value);
+        List<PostResponseDto> postResponseDtoList = postMapper.toDtoResponseList(postList);
+        log.info("the list of post for sending is {}", postResponseDtoList);
+        return new ResponseEntity<ResponseDto<List<PostResponseDto>>>(ResponseDto.success(postResponseDtoList), HttpStatus.OK);
     }
 
 

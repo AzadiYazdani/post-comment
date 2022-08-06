@@ -31,4 +31,6 @@ public abstract class PostMapper {
 
     public abstract PostResponseDto toDtoResponse(Post entity);
 
+    public abstract List<PostResponseDto> toDtoResponseList(List<Post> postList);
+
 }
