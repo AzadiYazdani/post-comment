@@ -108,6 +108,7 @@ public class PostServiceImpl implements PostService {
             postEntity.setUser(userEntity);
 
             postRepository.save(postEntity);
+            log.info("\n New post with id {} saved", postEntity.getId());
             return postMapper.toModel(postEntity);
         } catch (Exception e) {
             log.info("\nThe exception '{}' was thrown for saving post {}", e.getMessage(), post);
@@ -123,8 +124,9 @@ public class PostServiceImpl implements PostService {
 
             updateEntity(postEntity, post);
             postRepository.save(postEntity);
+            log.info("\n post with id {} saved", postId);
             return postMapper.toModel(postEntity);
-        }catch (PostNotFoundException e){
+        } catch (PostNotFoundException e) {
             log.info("\nThe PostNotFoundException was thrown for updating post with id {}", postId);
             throw e;
         } catch (Exception e) {
@@ -141,7 +143,8 @@ public class PostServiceImpl implements PostService {
                     .orElseThrow(() -> new PostNotFoundException(postId));
             postEntity.setDeleted(true);
             postRepository.save(postEntity);
-        }catch (PostNotFoundException e){
+            log.info("\n post with id {} deleted", postId);
+        } catch (PostNotFoundException e) {
             log.info("\nThe PostNotFoundException was thrown for deleting post with id {}", postId);
             throw e;
         } catch (Exception e) {

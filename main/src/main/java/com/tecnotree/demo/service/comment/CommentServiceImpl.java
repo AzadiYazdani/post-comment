@@ -74,6 +74,7 @@ public class CommentServiceImpl implements CommentService {
             commentEntity.setPost(postEntity);
 
             commentRepository.save(commentEntity);
+            log.info("\n New comment with id {} saved", commentEntity.getId());
             return commentMapper.toModel(commentEntity);
         } catch (Exception e) {
             log.info("\nThe exception '{}' was thrown for saving comment {}", e.getMessage(), comment);
@@ -89,6 +90,7 @@ public class CommentServiceImpl implements CommentService {
 
             updateEntity(commentEntity, comment);
             commentRepository.save(commentEntity);
+            log.info("\n comment with id {} updated", commentId);
             return commentMapper.toModel(commentEntity);
         }catch (CommentNotFoundException e){
             log.info("\nThe CommentsNotFoundException was thrown for updating comment with id {}", commentId);
@@ -106,6 +108,7 @@ public class CommentServiceImpl implements CommentService {
                     .orElseThrow(() -> new CommentNotFoundException(commentId));
             commentEntity.setDeleted(true);
             commentRepository.save(commentEntity);
+            log.info("\ncomment with id {} deleted", commentId);
         }catch (CommentNotFoundException e){
             log.info("\nThe CommentNotFoundException was thrown for deleting comment with id {}", commentId);
             throw e;
