@@ -1,6 +1,4 @@
 # post-comment
 
-This project contains only the Post and comments part of the code challenge, considering the low time.
-It contains API REST services for CRUD operations in two controllers, PostController and CommentController.
-There are only success tests for all the api urls using MVCMock.
-The database schema was on localhost with name = "tecnotree",username = "tecno-user", password = "tecno-123".
+This project is an API REST based on Spring boot and Java 1.8 and contains CRUD operations for posts, comments and toDos for Users. The database is Mysql which is not present here. The tests are for API layer using MockMVc.
+The Lombok and Mapstruct frameworks are used to generrate required codes.
