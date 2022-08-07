@@ -26,7 +26,7 @@ class CommentControllerTest {
 
 
     @Test
-    void getAllByPaging()  throws Exception {
+    void getAllByPaging_Correct()  throws Exception {
         mockMvc.perform(get("/comments")
                 .content(asJsonString(getPageRequestDto()))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -40,7 +40,7 @@ class CommentControllerTest {
 
 
     @Test
-    void getById() throws Exception {
+    void getById_Correct() throws Exception {
         mockMvc.perform(get("/comments/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -48,7 +48,7 @@ class CommentControllerTest {
     }
 
     @Test
-    void newComment() throws Exception {
+    void newComment_Correct() throws Exception {
         mockMvc.perform(post("/comments")
                 .content(asJsonString(getNewComment()))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ class CommentControllerTest {
     }
 
     @Test
-    void updateComment() throws Exception {
+    void updateComment_Correct() throws Exception {
         mockMvc.perform(patch("/comments/1")
                 .content(asJsonString(getUpdateComment()))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,7 +84,7 @@ class CommentControllerTest {
     }
 
     @Test
-    void deleteComment() throws Exception {
+    void deleteComment_Correct() throws Exception {
         mockMvc.perform(delete("/comments/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
