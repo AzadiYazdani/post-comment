@@ -1,4 +1,4 @@
-package com.tecnotree.demo.api.post.dto;
+package com.tecnotree.demo.api.todo.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder(setterPrefix = "set", toBuilder = true, builderMethodName = "newInstance")
 @Valid
-public class PostRequestDto implements Serializable {
+public class ToDoRequestDto implements Serializable {
 
 
     @ApiModelProperty(value = "User Id", dataType = "long", required = true, example = "1")
@@ -23,20 +23,20 @@ public class PostRequestDto implements Serializable {
     @Min(1)
     private Long userId;
 
-    @ApiModelProperty(value = "title of post", dataType = "String", required = true, example = "\"quasi id et eos tenetur aut quo autem\"")
+    @ApiModelProperty(value = "title of todo", dataType = "String", required = true, example = "\"quasi id et eos tenetur aut quo autem\"")
     @NotBlank
     private String title;
 
-    @ApiModelProperty(value = "body of post", dataType = "String", required = true, example = "\"eum sed dolores ipsam sint possimus debitis occaecati\\ndebitis qui qui et\\nut placeat enim earum aut odit facilis\\nconsequatur suscipit necessitatibus rerum sed inventore temporibus consequatur\"")
-    @NotBlank
-    private String body;
+    @ApiModelProperty(value = "is the todo completed", dataType = "boolean", required = true, example = "\true\"")
+    @NotNull
+    private Boolean completed;
 
     @Override
     public String toString() {
-        return "PostRequestDto{" +
+        return "ToDoRequestDto{" +
                 "userId=" + userId +
                 ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
+                ", completed=" + completed +
                 '}';
     }
 }

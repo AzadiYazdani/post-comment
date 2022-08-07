@@ -21,7 +21,7 @@ public class CommentResponseDto {
     @ApiModelProperty(value = "email of commenter", dataType = "String", required = true, example = "\"quasi id et eos tenetur aut quo autem\"")
     private String email;
 
-    @ApiModelProperty(value = "body for comment", dataType = "String", required = true, example = "\"quasi id et eos tenetur aut quo autem\"")
+    @ApiModelProperty(value = "body of comment", dataType = "String", required = true, example = "\"quasi id et eos tenetur aut quo autem\"")
     private String body;
 
     @Override

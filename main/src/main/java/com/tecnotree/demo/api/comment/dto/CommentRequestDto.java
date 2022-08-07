@@ -29,7 +29,7 @@ public class CommentRequestDto {
     @NotBlank
     private String email;
 
-    @ApiModelProperty(value = "body for comment", dataType = "String", required = true, example = "\"quia molestiae reprehenderit quasi aspernatur\\naut expedita occaecati aliquam eveniet laudantium\\nomnis quibusdam delectus saepe quia accusamus maiores nam est\\ncum et ducimus et vero voluptates excepturi deleniti ratione\"")
+    @ApiModelProperty(value = "body of comment", dataType = "String", required = true, example = "\"quia molestiae reprehenderit quasi aspernatur\\naut expedita occaecati aliquam eveniet laudantium\\nomnis quibusdam delectus saepe quia accusamus maiores nam est\\ncum et ducimus et vero voluptates excepturi deleniti ratione\"")
     @NotBlank
     private String body;
 
