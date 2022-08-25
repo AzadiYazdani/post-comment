@@ -4,9 +4,11 @@ package com.tecnotree.demo.api.comment;
 import com.tecnotree.demo.api.ResponseDto;
 import com.tecnotree.demo.api.comment.dto.CommentRequestDto;
 import com.tecnotree.demo.api.comment.dto.CommentResponseDto;
+import com.tecnotree.demo.api.comment.dto.CommentUpdateRequestDto;
 import com.tecnotree.demo.api.common.PageRequestDto;
 import com.tecnotree.demo.mapper.CommentMapper;
 import com.tecnotree.demo.model.Comment;
+import com.tecnotree.demo.model.CommentUpdateRequest;
 import com.tecnotree.demo.service.comment.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,7 +41,7 @@ public class CommentController {
     }
 
 
-    @GetMapping("/comments")
+    @GetMapping()
     @ApiOperation(value = "Get all comments with paging")
     public ResponseEntity<ResponseDto<Page<CommentResponseDto>>> getAllByPaging(@RequestBody @Valid @NotNull PageRequestDto pageRequestDto) {
         log.debug("received pageRequestDto for retrieving all comment is {}", pageRequestDto);
@@ -49,7 +51,7 @@ public class CommentController {
         return new ResponseEntity<ResponseDto<Page<CommentResponseDto>>>(ResponseDto.success(commentPage), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/comments/{commentId}")
+    @GetMapping(value = "/{commentId}")
     @ApiOperation(value = "Find a comment with given id")
     public ResponseEntity<ResponseDto<CommentResponseDto>> getById(@PathVariable("commentId") @Valid @Min(1) long commentId) {
         log.debug("received commentId for retrieving Comment is {}", commentId);
@@ -59,7 +61,7 @@ public class CommentController {
         return new ResponseEntity<ResponseDto<CommentResponseDto>>(ResponseDto.success(dtoResponse), HttpStatus.OK);
     }
 
-    @PostMapping("/comments")
+    @PostMapping()
     @ApiOperation(value = "Add new comment for a user")
     public ResponseEntity<ResponseDto<CommentResponseDto>> newComment(@RequestBody @Valid @NotNull CommentRequestDto requestDto) {
         log.debug("received CommentRequestDto for retrieving Comment is {}", requestDto);
@@ -70,18 +72,18 @@ public class CommentController {
         return new ResponseEntity<ResponseDto<CommentResponseDto>>(ResponseDto.success(dtoResponse), HttpStatus.OK);
     }
 
-    @PatchMapping("/comments/{commentId}")
+    @PatchMapping("/{commentId}")
     @ApiOperation(value = "Update title or body of a comment")
-    public ResponseEntity<ResponseDto<CommentResponseDto>> updateComment(@PathVariable("commentId") @Valid @Min(1)  long commentId, @RequestBody @Valid @NotNull  CommentRequestDto requestDto) {
+    public ResponseEntity<ResponseDto<CommentResponseDto>> updateComment(@PathVariable("commentId") @Valid @Min(1)  long commentId, @RequestBody @Valid @NotNull CommentUpdateRequestDto requestDto) {
         log.debug("received CommentRequestDto for retrieving Comment is {}", requestDto);
-        Comment comment = commentMapper.toModel(requestDto);
-        comment = commentService.updateComment(commentId, comment);
+        CommentUpdateRequest commentUpdateRequest = commentMapper.toModel(requestDto);
+        Comment comment = commentService.updateComment(commentId, commentUpdateRequest);
         CommentResponseDto dtoResponse = commentMapper.toDtoResponse(comment);
         log.info("the PostDto for sending is {}", dtoResponse);
         return new ResponseEntity<ResponseDto<CommentResponseDto>>(ResponseDto.success(dtoResponse), HttpStatus.OK);
     }
 
-    @DeleteMapping("/comments/{commentId}")
+    @DeleteMapping("/{commentId}")
     @ApiOperation(value = "Delete a comment with a given id")
     public ResponseEntity<ResponseDto> deleteComment(@PathVariable("commentId") @Valid @Min(1) long commentId) {
         log.debug("received commentId for retrieving Comment is {}", commentId);

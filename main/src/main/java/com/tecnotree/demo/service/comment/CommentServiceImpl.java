@@ -8,6 +8,7 @@ import com.tecnotree.demo.error.exception.CommentNotFoundException;
 import com.tecnotree.demo.error.exception.PersistException;
 import com.tecnotree.demo.mapper.CommentMapper;
 import com.tecnotree.demo.model.Comment;
+import com.tecnotree.demo.model.CommentUpdateRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -83,12 +84,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment updateComment(@Min(1) long commentId, @Valid @NotNull Comment comment) {
+    public Comment updateComment(@Min(1) long commentId, @Valid @NotNull CommentUpdateRequest commentUpdateRequest) {
         try {
             CommentEntity commentEntity = commentRepository.findByIdAndDeletedIsFalse(commentId)
                     .orElseThrow(() -> new CommentNotFoundException(commentId));
 
-            updateEntity(commentEntity, comment);
+            updateEntity(commentEntity, commentUpdateRequest);
             commentRepository.save(commentEntity);
             log.info("\n comment with id {} updated", commentId);
             return commentMapper.toModel(commentEntity);
@@ -118,8 +119,8 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
-    private void updateEntity(CommentEntity commentEntity, Comment comment) {
-        commentEntity.setBody(comment.getBody());
+    private void updateEntity(CommentEntity commentEntity, CommentUpdateRequest commentUpdateRequest) {
+        commentEntity.setBody(commentUpdateRequest.getBody());
         commentEntity.setUpdateTime(LocalDateTime.now());
     }
 

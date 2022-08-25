@@ -2,6 +2,7 @@ package com.tecnotree.demo.service.comment;
 
 
 import com.tecnotree.demo.model.Comment;
+import com.tecnotree.demo.model.CommentUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +20,7 @@ public interface CommentService {
 
     Comment newComment(@Valid @NotNull Comment comment);
 
-    Comment updateComment(@Min(1) long id, @Valid @NotNull Comment comment);
+    Comment updateComment(@Min(1) long id, @Valid @NotNull CommentUpdateRequest commentUpdateRequest);
 
     void deleteComment(@Min(1) long id);
 }
