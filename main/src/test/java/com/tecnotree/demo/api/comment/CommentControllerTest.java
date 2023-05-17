@@ -59,8 +59,8 @@ class CommentControllerTest {
     private CommentRequestDto getNewComment() {
         return CommentRequestDto.newInstance()
                 .setPostId(1L)
-                .setName("odio adipisci rerum aut animi")
-                .setEmail("Nikita@garfield.biz")
+                .setName("Azadi")
+                .setEmail("azadi.yazdani@yahoo.com")
                 .setBody("quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione")
                 .build();
     }
@@ -77,9 +77,7 @@ class CommentControllerTest {
     private Object getUpdateComment() {
         return CommentRequestDto.newInstance()
                 .setPostId(1L)
-                .setName("odio adipisci rerum aut animi")
-                .setEmail("Nikita@garfield.biz")
-                .setBody("quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione")
+                .setBody("Hey")
                 .build();
     }
 
