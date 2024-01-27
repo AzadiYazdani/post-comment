@@ -6,6 +6,7 @@
     <modules>
         <module>main</module>
         <module>model</module>
+        <module>common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -13,11 +14,11 @@
         <version>2.2.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.tecnotree</groupId>
-    <artifactId>demo</artifactId>
+    <groupId>com.haraji</groupId>
+    <artifactId>sale</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for tecnotree</description>
+    <name>sale</name>
+    <description>sale project for haraji</description>
     <properties>
         <java.version>1.8</java.version>
         <org.projectlombok.version>1.18.12</org.projectlombok.version>
