@@ -1,7 +1,7 @@
 package com.sale.baseinfo.api.location;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sale.common.dto.PageRequestDto;
+import com.haraji.sale.dto.PageRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
