@@ -8,15 +8,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 
-@SpringBootApplication(scanBasePackages = {"com.haraji.app"})
-//@EnableJpaRepositories(basePackages= {"com.haraji.baseInfo.database.repository","com.haraji.business.database.repository"})
-@EnableJpaRepositories
-@EntityScan(basePackages= {"com.haraji.baseInfo.database.entity","com.haraji.business.database.entity"})
-@ConfigurationPropertiesScan(basePackages = {"com.haraji.app"})
+
+@SpringBootApplication(scanBasePackages = {"com.haraji.common","com.haraji.app","com.haraji.baseinfo","com.haraji.baseinfo.mapper","com.haraji.baseinfo.service", "com.haraji.business"})
+//@ComponentScan("com.haraji.dialer.domain")
+@EnableJpaRepositories(basePackages= {"com.haraji.baseinfo.database.repository","com.haraji.business.database.repository"})
+@EntityScan(basePackages= {"com.haraji.baseinfo.database.entity","com.haraji.business.database.entity"})
+@ConfigurationPropertiesScan(basePackages = {"com.haraji.app", "com.haraji.baseinfo", "com.haraji.business"})
 @Slf4j
 public class ApplicationRunner {
 
