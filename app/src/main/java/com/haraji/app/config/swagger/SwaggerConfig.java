@@ -94,7 +94,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
 //                .globalOperationParameters(parameterBuildersList)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sale"))
+                .apis(RequestHandlerSelectors.basePackage("com.haraji"))
                 .paths(PathSelectors.any())
                 .build()
 //                .directModelSubstitute(LocalDate.class, String.class)
