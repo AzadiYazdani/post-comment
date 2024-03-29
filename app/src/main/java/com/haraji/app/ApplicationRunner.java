@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
@@ -36,7 +35,7 @@ public class ApplicationRunner {
         ConfigurableApplicationContext ctx = application.run(args);
         ctx.registerShutdownHook();
 
-        log.info("Application Started");
+        log.info("Application Started on http://localhost:8081/swagger-ui/#/");
     }
 
 //    @Bean
