@@ -28,7 +28,7 @@ class TokenControllerTest {
 
     @Test
     void login_Correct() throws Exception {
-        MockHttpServletResponse result=  getToken();
+        MockHttpServletResponse result = getToken();
         String response = result.getContentAsString();
         System.out.println(response);
         assertEquals(result.getStatus(), 200);
@@ -37,10 +37,10 @@ class TokenControllerTest {
     private MockHttpServletResponse getToken() throws Exception {
         MvcResult requestResult =
                 mockMvc.perform(post("/authentication/login")
-                                .content(asJsonString(getAuthRequest()))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                        )
+                        .content(asJsonString(getAuthRequest()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
                         .andExpect(status().isOk())
                         .andReturn();
         return requestResult.getResponse();
@@ -55,12 +55,12 @@ class TokenControllerTest {
 
         MvcResult requestResult =
                 mockMvc.perform(post("/file/upload")
-                                .content(asJsonString(request)
-                                )
-                                 .header("Authorization", "Bearer " + token)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(request)
                         )
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
                         .andExpect(status().isOk())
                         .andReturn();
 
@@ -75,7 +75,7 @@ class TokenControllerTest {
 
     private UploadedMultipartFileDto uploadRequest() {
 
-        return  new UploadedMultipartFileDto(
+        return new UploadedMultipartFileDto(
                 "Hello, World!".getBytes(),
                 MediaType.TEXT_PLAIN_VALUE,
                 "file",

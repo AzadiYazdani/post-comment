@@ -1,6 +1,7 @@
 package com.haraji.app;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,6 @@ import springfox.documentation.service.ApiInfo;
 
 
 @SpringBootApplication(scanBasePackages = {"com.haraji.common","com.haraji.app","com.haraji.baseinfo","com.haraji.baseinfo.mapper","com.haraji.baseinfo.service", "com.haraji.business"})
-//@ComponentScan("com.haraji.dialer.domain")
 @EnableJpaRepositories(basePackages= {"com.haraji.baseinfo.database.repository","com.haraji.business.database.repository"})
 @EntityScan(basePackages= {"com.haraji.baseinfo.database.entity","com.haraji.business.database.entity"})
 @ConfigurationPropertiesScan(basePackages = {"com.haraji.app", "com.haraji.baseinfo", "com.haraji.business"})
