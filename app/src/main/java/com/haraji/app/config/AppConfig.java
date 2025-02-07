@@ -30,8 +30,8 @@ public class AppConfig {
     @Value("${ldap.url}")
     private String ldapUrl;
 
-    @Value("${ldap.port}")
-    private String ldapPort;
+//    @Value("${ldap.port}")
+//    private String ldapPort;
 
     @Value("${ldap.directory.root}")
     private String ldapRoot;
@@ -52,5 +52,8 @@ public class AppConfig {
     private String ldapDomain;
 
     @Value("${ldap.security.authentication}")
+    private String ldapType;
+
+    @Value("${security.type}")
     private String securityType;
 }

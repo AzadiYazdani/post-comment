@@ -1,6 +1,8 @@
-package com.haraji.app.service.ldap;
+package com.haraji.app.service.validation;
 
 import com.haraji.app.config.AppConfig;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -12,31 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-@Service
-public class LdapServiceImpl implements LdapService {
+@Service("DB")
+public class DBValidationImpl implements ValidationService {
     private final AppConfig appConfig;
 
-    public LdapServiceImpl(AppConfig appConfig) {
+    public DBValidationImpl(AppConfig appConfig) {
         this.appConfig = appConfig;
     }
 
     @Override
-    public boolean validate(String username, String password) {
+    public User validate(String username, String password) {
+        User user;
         try {
             Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY, appConfig.getLdapFactory());
             props.put(Context.PROVIDER_URL, appConfig.getLdapUrl());
-            props.put(Context.SECURITY_AUTHENTICATION, appConfig.getSecurityType());
+            props.put(Context.SECURITY_AUTHENTICATION, appConfig.getLdapType());
             props.put(Context.SECURITY_PRINCIPAL, username.concat("@").concat(appConfig.getLdapDomain()));
             props.put(Context.SECURITY_CREDENTIALS, password);
 
             LdapContext context = new InitialLdapContext(props, null);
             List<GrantedAuthority> roles = new ArrayList<>();
-            User user = new User(username, password, roles);
+            user = new User(username, password, roles);
         } catch (Exception e) {
-            return false;
+            return null;
         }
-        return true;
+        return user;
     }
 
 }

@@ -1,18 +1,21 @@
 package com.haraji.app.config;
 
 
+import com.haraji.app.config.filter.JWTAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
 @EnableWebSecurity
-//@PropertySource("classpath:application.yml")
+////@PropertySource("classpath:application.yml")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTAuthenticationFilter jwtAuthenticationFilter;

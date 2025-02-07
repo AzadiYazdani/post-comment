@@ -19,6 +19,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 security:
+  type: DB
   oauth2:
     token-uri: jdbc:mysql://localhost:3306/sale_db
 

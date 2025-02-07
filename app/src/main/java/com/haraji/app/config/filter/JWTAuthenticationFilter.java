@@ -1,4 +1,4 @@
-package com.haraji.app.config;
+package com.haraji.app.config.filter;
 
 import com.haraji.app.service.token.TokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         this.tokenService = tokenService;
     }
 
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
