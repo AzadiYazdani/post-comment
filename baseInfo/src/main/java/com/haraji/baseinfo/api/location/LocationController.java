@@ -2,13 +2,13 @@ package com.haraji.baseinfo.api.location;
 
 
 import com.haraji.baseinfo.api.location.state.StateResponseDto;
-import com.haraji.baseinfo.model.City;
-import com.haraji.baseinfo.model.State;
+import com.haraji.baseinfo.model.location.City;
+import com.haraji.baseinfo.model.location.State;
 import com.haraji.common.dto.ResponseDto;
 import com.haraji.baseinfo.api.location.city.CityResponseDto;
-import com.haraji.baseinfo.mapper.CityMapper;
-import com.haraji.baseinfo.mapper.StateMapper;
-import com.haraji.baseinfo.service.state.StateService;
+import com.haraji.baseinfo.mapper.location.CityMapper;
+import com.haraji.baseinfo.mapper.location.StateMapper;
+import com.haraji.baseinfo.service.location.state.StateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

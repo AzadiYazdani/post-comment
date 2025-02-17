@@ -3,7 +3,7 @@ package com.haraji.baseinfo.mapper;
 
 import com.haraji.baseinfo.api.businessType.BusinessTypeResponseDto;
 import com.haraji.baseinfo.model.BusinessType;
-import com.haraji.baseinfo.database.entity.BusinessTypeEntity;
+import com.haraji.baseinfo.database.entity.business.BusinessTypeEntity;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 

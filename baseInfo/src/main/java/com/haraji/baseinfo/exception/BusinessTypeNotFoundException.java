@@ -3,11 +3,11 @@ package com.haraji.baseinfo.exception;
 public class BusinessTypeNotFoundException extends RuntimeException {
 
     public BusinessTypeNotFoundException(Long id) {
-        super(String.format("No cities were found for the state with id %d", id));
+        super(String.format("the business type %d not found", id));
     }
 
     public BusinessTypeNotFoundException() {
-        super("No city found");
+        super("No business type found");
     }
 
 }
